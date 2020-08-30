@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -8,12 +8,13 @@ import TodoList from "./TodoList";
 import uuid from "uuid/dist/v4";
 
 export default function TodoApp() {
-  const initialTodos = [
-    { id: 1, task: "World Hello", completed: false },
-    { id: 1, task: "Hello World", completed: true },
-    { id: 1, task: "Hello", completed: false },
-  ];
+  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
   const [todos, setTodos] = useState(initialTodos);
+
+  useEffect(() => {
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   const addTodo = (newTodoText) => {
     setTodos([...todos, { id: uuid(), task: newTodoText, completed: false }]);
   };
