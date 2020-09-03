@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import useInputState from "../hooks/useInputState";
+import { TodosContext } from "../context/todos.context";
 
-export default function EditTodoForm({ editTodo, task, id, toggle }) {
+export default function EditTodoForm({ id, task, toggleEditForm }) {
+  const { editTodo } = useContext(TodosContext);
   const [value, handleChange, reset] = useInputState(task);
   return (
     <form
@@ -11,7 +13,7 @@ export default function EditTodoForm({ editTodo, task, id, toggle }) {
         e.preventDefault();
         editTodo(id, value);
         reset();
-        toggle();
+        toggleEditForm();
       }}
       style={{ width: "100%" }}
     >

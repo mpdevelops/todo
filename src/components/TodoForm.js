@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import useInputState from "../hooks/useInputState";
+import { TodosContext } from "../context/todos.context";
 
-export default function TodoForm({ addTodo }) {
+export default function TodoForm() {
   const [value, handleChange, reset] = useInputState("");
+  const { addTodo } = useContext(TodosContext);
   return (
     <form
       onSubmit={(e) => {
