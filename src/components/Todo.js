@@ -7,7 +7,7 @@ import EditTodoForm from "./EditTodoForm";
 import { TodosContext } from "../context/todos.context";
 
 export default function Todo({ id, task, completed }) {
-  const { removeTodo, toggleTodo } = useContext(TodosContext);
+  const { dispatch } = useContext(TodosContext);
   const [isEditing, toggle] = useToggleState();
   return (
     <ListGroupItem className='d-flex justify-content-between'>
@@ -18,7 +18,7 @@ export default function Todo({ id, task, completed }) {
           <FormCheck
             tabIndex={-1}
             checked={completed}
-            onClick={() => toggleTodo(id)}
+            onClick={() => dispatch({ type: "TOGGLE", id: id })}
             className='mt-1'
           />
           <h4
@@ -33,7 +33,7 @@ export default function Todo({ id, task, completed }) {
             <Icon.Trash
               className='mr-4 mt-1'
               aria-label='Delete'
-              onClick={() => removeTodo(id)}
+              onClick={() => dispatch({ type: "REMOVE", id: id })}
               size={20}
             />
             <Icon.Pencil
